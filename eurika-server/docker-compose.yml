@@ -1,0 +1,19 @@
+version: '3.2'
+services:
+  registry1:
+    image: service-registry
+    environment:
+      - IP=167.99.166.211
+      - PORT=8111
+      - OTHER_SERVERS_URL=http://167.99.166.211:8222/eureka
+    ports:
+      - 8111:8111
+
+  registry2:
+    image: service-registry
+    environment:
+      - IP=167.99.166.211
+      - PORT=8222
+      - OTHER_SERVERS_URL=http://167.99.166.211:8111/eureka
+    ports:
+      - 8222:8222
