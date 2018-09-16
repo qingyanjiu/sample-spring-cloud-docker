@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+  registry1:
+    image: service-registry
+    environment:
+      - IP=registry1
+      - PORT=8111
+      - OTHER_SERVERS_URL=http://registry2:8222/eureka
+    ports:
+      - 8111:8111
+    deploy:
+      placement:
+        constraints:
+          - node.role==manager
+
+  registry2:
+    image: service-registry
+    environment:
+      - IP=registry2
+      - PORT=8222
+      - OTHER_SERVERS_URL=http://registry1:8111/eureka
+    ports:
+      - 8222:8222
+    deploy:
+      placement:
+       constraints:
+         - node.role==manager
