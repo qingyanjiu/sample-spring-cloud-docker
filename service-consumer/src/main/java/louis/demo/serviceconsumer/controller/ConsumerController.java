@@ -1,5 +1,6 @@
 package louis.demo.serviceconsumer.controller;
 
+import louis.demo.serviceconsumer.restService.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,11 @@ import java.util.Map;
 @RequestMapping("/")
 public class ConsumerController {
     @Autowired
-    RestTemplate restTemplate;
+    HelloService helloService;
 
     @ResponseBody
     @RequestMapping(value = "/consumer", method = RequestMethod.GET)
     public Map helloConsumer() {
-        return restTemplate.getForEntity("http://HELLO-SERVICE/hello",Map.class).getBody();
+        return helloService.hello();
     }
 }
