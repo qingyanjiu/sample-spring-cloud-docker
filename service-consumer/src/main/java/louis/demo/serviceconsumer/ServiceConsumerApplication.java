@@ -10,15 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients
+//@EnableDiscoveryClient
+//@EnableFeignClients
 public class ServiceConsumerApplication {
 
-	@Bean
-	@LoadBalanced//启用ribbon负载均衡调用服务
-	public RestTemplate restTemplate(){
-		return new RestTemplate();
-	}
+//	@Bean
+//	@LoadBalanced//启用ribbon负载均衡调用服务
+//	public RestTemplate restTemplate(){
+//		return new RestTemplate();
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServiceConsumerApplication.class, args);
