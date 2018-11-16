@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: eagle-eye-main-dev
+  labels:
+    app: eagle-eye-main
+    life: dev
+spec:
+  selector:
+    matchLabels:
+      app: eagle-eye-main
+      life: dev
+  replicas: 1
+  template:
+    metadata:
+      name: eagle-eye-main
+      labels:
+        app: eagle-eye-main
+        life: dev
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: eagle-eye-main
+        image: tomcat:8
+        ports:
+        - containerPort: 8080
+        command:
+        - bash
+        - "-c"
+        - |
+          while [[ "$res" != "200" ]]; do echo "waiting for config server to start..."; sleep 5s;res=`curl -I -m 10 -o /dev/null -s -w %{http_code} http://config1.mokulive.stream:8080/configfiles/mokulive/default/application`; done; catalina.sh run;
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eagle-eye-main-dev
+  labels:
+    app: eagle-eye-main
+    life: dev
+spec:
+  selector:
+    app: eagle-eye-main
+    life: dev
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30000
+    targetPort: 8080
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
