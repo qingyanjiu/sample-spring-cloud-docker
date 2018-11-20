@@ -1,0 +1,14 @@
+server:
+  port: 30000
+
+eureka:
+  data-center: default
+  environment: test
+  client:
+    service-url:
+      defaultZone: ${service-register-servers:http://config.mokulive.stream:8080/eureka}
+    health-check.enabled: true
+
+logging:
+  level:
+    org.springframework.amqp: error

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: sidecar
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: ${config-server-uri:http://live-config.herokuapp.com}
+      profile: ${spring.profiles.active:dev}
+#    discovery:
+#      enabled: true
+#      service-id: Config-server
+#        username: ${config.username:devops}
+#        password: ${config.username:devops2017}
+
