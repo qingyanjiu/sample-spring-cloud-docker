@@ -2,12 +2,16 @@ server:
   port: 30000
 
 eureka:
-  data-center: default
-  environment: test
+  instance:
+    metadata-map:
+      instanceId: ${spring.application.name}:${random.value}
   client:
+    fetch-registry: true
+    register-with-eureka: true
     service-url:
       defaultZone: ${service-register-servers:http://config.mokulive.stream:8080/eureka}
     health-check.enabled: true
+
 
 logging:
   level:

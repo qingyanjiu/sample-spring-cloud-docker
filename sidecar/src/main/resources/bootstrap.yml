@@ -7,9 +7,9 @@ spring:
     config:
       uri: ${config-server-uri:http://live-config.herokuapp.com}
       profile: ${spring.profiles.active:dev}
+      label: ${config-server-label:master}
 #    discovery:
 #      enabled: true
 #      service-id: Config-server
 #        username: ${config.username:devops}
 #        password: ${config.username:devops2017}
-
