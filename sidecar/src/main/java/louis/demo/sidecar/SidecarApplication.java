@@ -13,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.sidecar.EnableSidecar;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,26 +28,22 @@ public class SidecarApplication {
     @Value("${spring.cloud.config.uri}")
     private String configServerUrl = "";
 
-    @Value("${spring.cloud.config.profile}")
-    private String configServerProfile = "";
-
-    @Value("${spring.application.name}")
+    @Value("${target.project.name}")
     private String appName = "";
 
     public static void main(String[] args) {
         SpringApplication.run(SidecarApplication.class, args);
     }
 
-
-    @RequestMapping("properties")
+    @RequestMapping("properties/{profile}")
     @ResponseBody
-    public Properties getProperties() {
+    public Properties getProperties(@PathVariable("profile") String profile) {
         StringBuffer url = new StringBuffer();
         url.append(configServerUrl)
                 .append("/")
                 .append(appName)
                 .append("-")
-                .append(configServerProfile)
+                .append(profile)
                 .append(".properties");
         HttpGet httpGet = new HttpGet(url.toString());
         HttpClient httpClient = HttpClients.createDefault();
