@@ -37,16 +37,24 @@ public class MyBeanPostProcessor implements BeanPostProcessor, ApplicationContex
                 }
             }
 
+            //获取含有@Value注解的成员变量
             Annotation valueAnnotation = fields[i].getAnnotation(Value.class);
             if(valueAnnotation!=null){
                 ContainAnnotationValueBean containAnnotationValueBean =  new ContainAnnotationValueBean();
                 containAnnotationValueBean.setClassWithValueAnnotation(bean.getClass());
                 containAnnotationValueBean.setValueAnnotationFieldName(fields[i].getName());
+                containAnnotationValueBean.setValueAnnotationBeanName(beanName);
                 String value = ((Value)valueAnnotation).value();
                 if(value != null) {
-                    containAnnotationValueBean.setValueAnnotaionValue(value);
+                    containAnnotationValueBean.setValueAnnotationValue(value);
                 }
+                //获取已经手动注册的更新配置，并进行通知的bean
+                ValueUpdateNotifier valueUpdateNotifier = (ValueUpdateNotifier) applicationContext.getBean("valueUpdateNotifier");
+                //添加listener到通知bean
+                valueUpdateNotifier.addListener(containAnnotationValueBean);
+                //获取保存所有含有@Value注释的对象ContainAnnotationValue列表的bean
                 ContainAnnotationValueList containAnnotationValueList = (ContainAnnotationValueList) applicationContext.getBean("containAnnotationValueList");
+                //将包含@Value注解的信息存入bean中
                 containAnnotationValueList.addContainAnnotationValueBean(containAnnotationValueBean);
             }
         }
