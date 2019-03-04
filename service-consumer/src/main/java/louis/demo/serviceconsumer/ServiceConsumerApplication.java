@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 //@EnableDiscoveryClient
-//@EnableFeignClients
+@EnableFeignClients
 @EnableScheduling
 public class ServiceConsumerApplication {
 

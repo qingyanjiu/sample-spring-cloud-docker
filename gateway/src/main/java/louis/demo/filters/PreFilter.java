@@ -1,4 +1,4 @@
-package com.coding.studiodemo.filters;
+package louis.demo.filters;
 
 import javax.servlet.http.HttpServletRequest;
 import com.netflix.zuul.ZuulFilter;

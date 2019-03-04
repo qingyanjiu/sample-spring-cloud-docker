@@ -1,13 +1,15 @@
-package com.coding.studiodemo;
+package louis.demo;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import louis.demo.filters.PreFilter;
+
 import org.springframework.ui.ModelMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
-import com.coding.studiodemo.filters.PreFilter;
 
 @SpringBootApplication
 @Controller

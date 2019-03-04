@@ -1,8 +1,11 @@
 package louis.demo.serviceconsumer.controller;
 
-import louis.demo.serviceconsumer.ContainAnnotationValueBean;
-import louis.demo.serviceconsumer.ContainAnnotationValueList;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -11,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import louis.demo.serviceconsumer.ContainAnnotationValueList;
+import louis.demo.serviceconsumer.restService.HelloService;
 
 @Controller
 @RequestMapping("/")
 public class ConsumerController implements ApplicationContextAware {
-
+	
     private ApplicationContext applicationContext;
 
     @Given(value = "a given value")
     private String data = "";
-//    @Autowired
-//    HelloService helloService;
+    
+    @Autowired
+    HelloService helloService;
 
     @Value("${test.value}")
     private String test;
@@ -32,7 +35,8 @@ public class ConsumerController implements ApplicationContextAware {
     @ResponseBody
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public Map helloConsumer() {
-//        return helloService.hello();
+		Map hello = helloService.hello();
+		System.out.println("HELLO***********"+hello);
         Map map = new HashMap();
         map.put("value",data);
         return map;

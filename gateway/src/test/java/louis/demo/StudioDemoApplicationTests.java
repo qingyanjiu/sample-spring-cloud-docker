@@ -1,4 +1,4 @@
-package com.coding.studiodemo;
+package louis.demo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
