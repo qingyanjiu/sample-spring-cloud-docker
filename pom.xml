@@ -23,5 +23,6 @@
 		<module>service-consumer</module>
         <module>service-provider</module>
         <module>sidecar</module>
+        <module>gateway</module>
   	</modules>
 </project>
