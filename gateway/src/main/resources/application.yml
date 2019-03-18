@@ -1,11 +1,16 @@
-server:
-  port: 9000
-
 spring:
   profiles:
     active: dev
+
+---
+
+spring:
+  profiles: dev
   application:
     name: api-geteway
+
+server:
+  port: 9000
 
 zuul:
   prefix: /api
@@ -52,7 +57,7 @@ hystrix:
         # 熔断后断路器打开多久
         sleepWindowInMilliseconds: 5000
         # 20秒有多少个连接超时，就进行熔断
-        requestVolumeThreshold: 2
+        requestVolumeThreshold: 10
         # 回退逻辑的错误比率达到百分之多少，就进行熔断
         # (requestVolumeThreshold 和 errorThresholdPercentage 这两个条件要同时满足才会熔断)
         errorThresholdPercentage: 50
