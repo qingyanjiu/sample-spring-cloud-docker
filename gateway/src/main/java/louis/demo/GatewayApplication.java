@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @Controller
 @EnableZuulProxy
-public class StudioDemoApplication {
+public class GatewayApplication {
     @RequestMapping("/")
     public String greeting(ModelMap map) {
         String jreVersion = System.getProperty("java.specification.version");
@@ -23,7 +23,7 @@ public class StudioDemoApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(StudioDemoApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 
     @Bean
