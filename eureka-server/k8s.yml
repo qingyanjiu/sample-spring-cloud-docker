@@ -1,0 +1,64 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: registry-server
+  labels:
+    app: eureka
+spec:
+  serviceName: registry-server-internal
+  selector:
+    matchLabels:
+      app: eureka
+  replicas: 3
+  template:
+    metadata:
+      name: registry-server
+      labels:
+        app: eureka
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: registry-server
+        image: alaien/eureka-test
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "8080"
+        - name: REPLICA_URLS
+          value: http://registry-server-0/eureka,http://registry-server-1/eureka,http://registry-server-2/eureka
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-server-internal
+  labels:
+    app: eureka
+spec:
+  selector:
+    app: eureka
+  clusterIP: None
+  ports:
+  - port: 80
+    targetPort: 8080
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-server
+  labels:
+    app: eureka
+spec:
+  selector:
+    app: eureka
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30000
