@@ -1,0 +1,99 @@
+spring:
+  profiles:
+    active: prod
+
+---
+
+spring:
+  profiles: prod
+  application:
+    name: config-server
+  security:
+    user:
+      name: test
+      password: test
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      username: test
+      password: test
+      profile: ${spring.profiles.active}
+      name: frontend-sidecar
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    prefer-ip-address: true
+
+---
+
+spring:
+  profiles: dev
+  application:
+    name: config-server
+  security:
+    user:
+      name: test
+      password: test
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      username: test
+      password: test
+      profile: ${spring.profiles.active}
+      name: frontend-sidecar
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    prefer-ip-address: true
+
+
+---
+
+spring:
+  profiles: local
+  application:
+    name: config-server
+  security:
+    user:
+      name: test
+      password: test
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      username: test
+      password: test
+      profile: ${spring.profiles.active}
+      name: frontend-sidecar
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    prefer-ip-address: true
+
+

@@ -8,9 +8,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.netflix.sidecar.EnableSidecar;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +27,20 @@ import java.util.Properties;
 @Controller("/")
 public class SidecarApplication {
 
-    @Value("${spring.cloud.config.uri}")
-    private String configServerUrl = "";
+    @Autowired
+    private LoadBalancerClient loadBalancerClient;
 
     @Value("${target.project.name}")
     private String appName = "";
+
+    @Value("${config.server.service.id}")
+    private String configServerServiceId = "";
+
+    @Value("${config.server.usename}")
+    private String configServerUsername = "";
+
+    @Value("${config.server.password}")
+    private String configServerPassword = "";
 
     public static void main(String[] args) {
         SpringApplication.run(SidecarApplication.class, args);
@@ -39,6 +50,9 @@ public class SidecarApplication {
     @ResponseBody
     public Properties getProperties(@PathVariable("profile") String profile) {
         StringBuffer url = new StringBuffer();
+        String configServerUrl = "http://"+configServerUsername+":"+configServerPassword+"@"
+                + loadBalancerClient.choose(configServerServiceId).getHost()
+                +":"+loadBalancerClient.choose(configServerServiceId).getPort();
         url.append(configServerUrl)
                 .append("/")
                 .append(appName)

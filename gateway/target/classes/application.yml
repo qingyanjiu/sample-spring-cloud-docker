@@ -1,11 +1,16 @@
-server:
-  port: 9000
-
 spring:
   profiles:
     active: dev
+    
+---
+
+spring:
+  profiles: dev
   application:
     name: api-geteway
+
+server:
+  port: 9000
 
 zuul:
   prefix: /api
