@@ -20,6 +20,18 @@ zuul:
       path: /hello/**
       serviceId: hello-service
 
+#zuul:
+#  routes:
+#    ee-service:
+#      path: /hello/**
+#      serviceId: hello-service
+#hello-service:
+#  ribbon:
+#    listOfServers: http://localhost:8080,http://localhost:8081,http://localhost:8082
+#ribbon:
+#  eureka:
+#    enabled: false
+
 eureka:
   client:
     register-with-eureka: false
