@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @SpringBootApplication
 @Controller
@@ -19,5 +21,11 @@ public class GatewayApplication {
     @Bean
     public PreFilter preFilter() {
         return new PreFilter();
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test(){
+        return "test";
     }
 }

@@ -13,14 +13,18 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.Properties;
 
-@Component
+//@Component
 public class GetPropertyFromConfigServerConfigurer extends PropertySourcesPlaceholderConfigurer {
+
+    private boolean configServerOverride = true;
 
 
     private static final String PROFILE_PROD = "prod";
@@ -42,13 +46,38 @@ public class GetPropertyFromConfigServerConfigurer extends PropertySourcesPlaceh
     }
 
     @Override
-    public Properties mergeProperties(){
+    public Properties mergeProperties() throws IOException {
+        Properties result = new Properties();
+
+        if (this.localOverride) {
+            // Load properties from file upfront, to let local properties override.
+            loadProperties(result);
+        }
+
+        if (this.localProperties != null) {
+            for (Properties localProp : this.localProperties) {
+                CollectionUtils.mergePropertiesIntoMap(localProp, result);
+            }
+        }
+
+        if (!this.localOverride) {
+            // Load properties from file afterwards, to let those properties override.
+            loadProperties(result);
+        }
+
+        Properties props = getPropertiesFromConfigServer();
+        CollectionUtils.mergePropertiesIntoMap(props, result);
+
+        return result;
+    }
+
+    Properties getPropertiesFromConfigServer(){
+        Properties properties = new Properties();
         String url = environment.getProperty("config.server.url");
         String profile = environment.getProperty("spring.profiles.active");
         if(url == null){
             url = SIDECAR_CONFIG_URL;
         }
-        Properties result = new Properties();
         if(profile == null) {
             logger.error("Not found profile, set property spring.profiles.active to 'local' automatically");
             profile = PROFILE_LOCAL;
@@ -93,17 +122,17 @@ public class GetPropertyFromConfigServerConfigurer extends PropertySourcesPlaceh
                         String line = lines[i];
                         String key = line.substring(0, line.indexOf(":"));
                         String value = line.substring(line.indexOf(":") + 1, line.length());
-                        result.put(key.trim(), StringEscapeUtils.unescapeJava(value).trim());
+                        properties.put(key.trim(), StringEscapeUtils.unescapeJava(value).trim());
                     }
                 }
-                logger.info("get configuration successfully, [" + result.size() + "] lines received");
+                logger.info("get configuration successfully, [" + properties.size() + "] lines received");
             } catch (ClientProtocolException e) {
                 logger.error("http request failed，uri: " + url + ",exception: " + e.getMessage());
             } catch (IOException e) {
                 logger.error("http request failed，uri: " + url + ",exception: " + e.getMessage());
             }
         }
-
-        return result;
+        return properties;
     }
+
 }

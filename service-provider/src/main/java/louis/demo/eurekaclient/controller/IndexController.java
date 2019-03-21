@@ -20,6 +20,9 @@ public class IndexController {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private GetDataService getDataService;
+
     @Value("${server.port}")
     private String port;
 
@@ -39,5 +42,11 @@ public class IndexController {
         map.put("server.port",port);
         map.put("sidecar.health-uri",uri);
         return map;
+    }
+
+    @RequestMapping(value="/test")
+    public String test(){
+        String result = getDataService.test();
+        return result;
     }
 }
