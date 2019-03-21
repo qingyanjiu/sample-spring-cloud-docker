@@ -1,19 +1,17 @@
-spring:
-  profiles:
-    active: local
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
-      profile: ${spring.profiles.active}
-      name: gateway
-
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://test:test@localhost:8761/eureka
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+#spring:
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: ${spring.profiles.active}
+#      name: gateway
+#
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://test:test@localhost:8761/eureka
+#  instance:
+#    prefer-ip-address: true
+#    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
