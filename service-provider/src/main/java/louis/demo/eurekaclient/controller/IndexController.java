@@ -28,6 +28,11 @@ public class IndexController {
 
     @RequestMapping(value="/hello", method= RequestMethod.GET)
     public Map index(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Map map = new HashMap();
         map.put("result","success");
         map.put("profile",env.getActiveProfiles()[0]);
