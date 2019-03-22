@@ -20,7 +20,7 @@ public class IndexController {
     @Autowired
     private Environment env;
 
-    @Autowired
+    @Autowired(required = false)
     private GetDataService getDataService;
 
     @Value("${server.port}")
