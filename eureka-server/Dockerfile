@@ -8,7 +8,8 @@ RUN mvn clean package -Drun.jvmArguments="-Dport=$PORT -Dip=$IP -Dother.servers.
 
 
 FROM java:8-alpine
-COPY --from=0 /web/target/*.jar /app/
+COPY ./target/*.jar /app/
 WORKDIR /app
+ENV PORT=8761
 EXPOSE $PORT
-CMD java -jar -Dport=$PORT -Dip=$IP -Dother.servers.url=$OTHER_SERVERS_URL *.jar
+CMD java -Xms$HEAP_MEM -Xmx$HEAP_MEM -jar -Dother.servers.url=$OTHER_SERVERS_URL *.jar
