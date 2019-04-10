@@ -19,6 +19,7 @@ zuul:
     hello-service:
       path: /hello/**
       serviceId: hello-service
+      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
 
 #zuul:
 #  routes:
