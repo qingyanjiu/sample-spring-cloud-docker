@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-consumer
+  labels:
+    app: service-consumer
+    life: prod
+spec:
+  selector:
+    matchLabels:
+      app: service-consumer
+      life: prod
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxSurge: 1
+#      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      name: service-consumer
+      labels:
+        app: service-consumer
+        life: prod
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: service-consumer
+        imagePullPolicy: Always
+        image: alaien/service-consumer
+        ports:
+        - containerPort: 9002
+        env:
+        - name: REGISTRY_SERVERS_URL
+          value: http://test:test@registry-server/eureka
+        - name: HEAP_MEM
+          value: 512m
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "10m"
+          limits:
+            memory: "1024Mi"
+            cpu: "1000m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-consumer
+  labels:
+    app: service-consumer
+    life: prod
+spec:
+  selector:
+    app: service-consumer
+    life: prod
+  ports:
+  - name: port
+    port: 80
+    targetPort: 9002

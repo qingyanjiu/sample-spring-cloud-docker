@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+    life: prod
+spec:
+  selector:
+    matchLabels:
+      app: config-server
+      life: prod
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxSurge: 1
+#      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      name: config-server
+      labels:
+        app: config-server
+        life: prod
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: config-server
+        imagePullPolicy: Always
+        image: alaien/config-server
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REGISTRY_SERVERS_URL
+          value: http://test:test@registry-server/eureka
+        - name: HEAP_MEM
+          value: 256m
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "10m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+    life: prod
+spec:
+  selector:
+    app: config-server
+    life: prod
+  ports:
+  - name: port
+    port: 80
+    targetPort: 3000

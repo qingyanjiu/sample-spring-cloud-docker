@@ -3,10 +3,12 @@ COPY . /client
 WORKDIR /client
 RUN mvn clean package -Dmaven.test.skip=true
 
-
 FROM java:8-alpine
+RUN apk update && apk add curl
 COPY --from=0 ./client/target/*.jar /app/
+USER root
 WORKDIR /app
-ENV PORT=8761
+RUN mkdir logs
+ENV PORT=9001
 EXPOSE $PORT
-CMD java -Xms$HEAP_MEM -Xmx$HEAP_MEM -jar -Dother.servers.url=$OTHER_SERVERS_URL *.jar
+CMD java -Xms$HEAP_MEM -Xmx$HEAP_MEM -jar -Dregistry.servers.url=$REGISTRY_SERVERS_URL *.jar

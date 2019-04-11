@@ -1,6 +1,7 @@
 package louis.demo;
 
 import louis.demo.filters.PreFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
@@ -17,6 +18,12 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 public class GatewayApplication {
 
+    @Value("${internalCors}")
+    private String internalCors;
+
+    @Value("${externalCors}")
+    private String externalCors;
+
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
@@ -28,11 +35,13 @@ public class GatewayApplication {
 
 
     @Bean
-    public CorsFilter corsFilter() {
+    public CorsFilter internalAPICorsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
+        String[] internalCorsArray = internalCors.split(",");
+        for(int i=0;i<internalCorsArray.length;i++)
+            config.addAllowedOrigin(internalCorsArray[i]);
         config.addAllowedHeader("*");
         config.addAllowedMethod("OPTIONS");
         config.addAllowedMethod("HEAD");
@@ -41,7 +50,27 @@ public class GatewayApplication {
         config.addAllowedMethod("POST");
         config.addAllowedMethod("DELETE");
         config.addAllowedMethod("PATCH");
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/gateway/**", config);
+        return new CorsFilter(source);
+    }
+
+    @Bean
+    public CorsFilter externalAPICorsFilter() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        String[] externalCorsArray = externalCors.split(",");
+        for(int i=0;i<externalCorsArray.length;i++)
+            config.addAllowedOrigin(externalCorsArray[i]);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("HEAD");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("DELETE");
+        config.addAllowedMethod("PATCH");
+        source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);
     }
 

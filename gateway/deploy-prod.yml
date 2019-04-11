@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    life: prod
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+      life: prod
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxSurge: 1
+#      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      name: gateway
+      labels:
+        app: gateway
+        life: prod
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: gateway
+        imagePullPolicy: Always
+        image: alaien/gateway
+        ports:
+        - containerPort: 9000
+        env:
+        - name: REGISTRY_SERVERS_URL
+          value: http://test:test@registry-server/eureka
+        - name: HEAP_MEM
+          value: 256m
+        - name: ARCHAIUS_CONFIG_SERVER
+          value: http://config-server/gateway-archaius.properties
+        - name: INTERNAL_CORS
+          value: https://frontend-eagle-eye-dev.cisco.com,http://localhost
+        - name: EXTERNAL_CORS
+          value: https://frontend-eagle-eye-dev.cisco.com,http://localhost
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "10m"
+          limits:
+            memory: "512Mi"
+            cpu: "2000m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+    life: prod
+spec:
+  selector:
+    app: gateway
+    life: prod
+  ports:
+  - name: port
+    port: 80
+    targetPort: 9000
