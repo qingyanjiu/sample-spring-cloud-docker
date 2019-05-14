@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: local
   cloud:
     config:
       discovery:
@@ -8,6 +6,10 @@ spring:
         service-id: config-server
       profile: ${spring.profiles.active}
       name: gateway
+  application:
+    name: gateway
+server:
+  port: 9000
 
 ---
 
@@ -16,21 +18,9 @@ spring:
 eureka:
   client:
     register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: ${REGISTRY_SERVERS_URL:http://test:test@localhost:8761/eureka}
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
-
----
-
-spring:
-  profiles: dev
-eureka:
-  client:
-    register-with-eureka: true
-    service-url:
-      defaultZone: ${REGISTRY_SERVERS_URL:http://test:test@localhost:8761/eureka}
+      defaultZone: http://test:test@localhost:8761/eureka
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
@@ -42,8 +32,23 @@ spring:
 eureka:
   client:
     register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: ${REGISTRY_SERVERS_URL:http://test:test@localhost:8761/eureka}
+      defaultZone: ${registry.servers.url:http://test:test@localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+
+---
+
+spring:
+  profiles: k8s
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${registry.servers.url}
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}

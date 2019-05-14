@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git.coding.net/qingyanjiu/live-config.git
+          basedir: /config-server
+          username: qingyanjiu@hotmail.com
+          password: 585106
+
+
+eureka:
+  environment: ${spring.profiles.active}
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+
+server:
+  port: 3000
+

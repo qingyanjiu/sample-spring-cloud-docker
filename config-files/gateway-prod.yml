@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: gateway
+
+server:
+  port: 9000
+
+zuul:
+#  prefix: /api
+  retryable: false
+  routes:
+    config-server:
+      path: /gateway/config/**
+      serviceId: config-server
+#    provider:
+#      path: /gateway/provider/**
+#      serviceId: provider
+#      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+ribbon:
+  OkToRetryOnAllOperations: false
+  ReadTimeout: 4000
+  ConnectTimeout: 1000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+hystrix:
+  command:
+    trouble-shooting:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+      circuitBreaker:
+        sleepWindowInMilliseconds: 5000
+        requestVolumeThreshold: 10
+        errorThresholdPercentage: 50

@@ -4,12 +4,10 @@ metadata:
   name: gateway
   labels:
     app: gateway
-    life: prod
 spec:
   selector:
     matchLabels:
       app: gateway
-      life: prod
 #  strategy:
 #    type: RollingUpdate
 #    rollingUpdate:
@@ -21,7 +19,6 @@ spec:
       name: gateway
       labels:
         app: gateway
-        life: prod
     spec:
       restartPolicy: Always
       containers:
@@ -38,9 +35,9 @@ spec:
         - name: ARCHAIUS_CONFIG_SERVER
           value: http://config-server/gateway-archaius.properties
         - name: INTERNAL_CORS
-          value: https://frontend-eagle-eye-dev.cisco.com,http://localhost
+          value: https://frontend.moku.site,http://localhost
         - name: EXTERNAL_CORS
-          value: https://frontend-eagle-eye-dev.cisco.com,http://localhost
+          value: https://frontend.moku.site,http://localhost
         resources:
           requests:
             memory: "256Mi"
@@ -57,11 +54,9 @@ metadata:
   name: gateway
   labels:
     app: gateway
-    life: prod
 spec:
   selector:
     app: gateway
-    life: prod
   ports:
   - name: port
     port: 80

@@ -1,4 +1,4 @@
-package louis.demo.eurekaserver;
+package louis.demo.registryserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableEurekaServer
 @SpringBootApplication
-public class EurikaServerApplication {
+public class RegistryServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EurikaServerApplication.class, args);
+		SpringApplication.run(RegistryServerApplication.class, args);
 	}
 
 	@EnableWebSecurity

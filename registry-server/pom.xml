@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>louis.demo</groupId>
-	<artifactId>eureka-server</artifactId>
+	<artifactId>registry-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>eureka-server</name>
-	<description>eureka server</description>
+	<name>registry-server</name>
+	<description>registry server</description>
 
 	<parent>
 		<groupId>louis.demo</groupId>

@@ -19,7 +19,7 @@
 
 	<modules>
 		<module>config-server</module>
-		<module>eureka-server</module>
+		<module>registry-server</module>
 		<module>service-consumer</module>
         <module>service-provider</module>
         <module>sidecar</module>

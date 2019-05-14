@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: discovery-server
+  security:
+    user:
+      name: test
+      password: test
+
+eureka:
+  environment: ${spring.profiles.active}
+  server:
+    enable-self-preservation: false
+    registry-sync-retry-wait-ms: 0
+    peer-node-connect-timeout-ms: 1000
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    fetch-registry: false
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${other.servers.url:http://test:test@localhost:8761/eureka}
+
+server:
+  port: ${PORT:8761}
