@@ -20,4 +20,4 @@ eureka:
     register-with-eureka: false
 
 server:
-  port: ${PORT:8761}
+  port: 8761
