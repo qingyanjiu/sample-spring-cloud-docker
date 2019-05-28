@@ -5,10 +5,11 @@ spring:
     config:
       server:
         git:
-          uri: https://git.coding.net/qingyanjiu/live-config.git
-          basedir: /config-server
+          uri: https://e.coding.net/moku/config-server.git
+          basedir: /config
           username: qingyanjiu@hotmail.com
           password: 585106
+  #          search-paths: config-files
 
 
 eureka:

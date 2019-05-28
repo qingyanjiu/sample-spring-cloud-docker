@@ -5,8 +5,11 @@ spring:
     config:
       server:
         git:
-          uri: file:\\\C:\Users\louisliu\Desktop\poc\sidecar-conf
-          basedir: /config-server
+          uri: https://e.coding.net/moku/config-server.git
+          basedir: /config-sample
+          username: qingyanjiu@hotmail.com
+          password: 585106
+#          search-paths: config-files
 
 eureka:
   environment: ${spring.profiles.active}
