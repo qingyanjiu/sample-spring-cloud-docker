@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: config-server
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       name: config-server
@@ -18,16 +18,22 @@ spec:
       restartPolicy: Always
       containers:
       - name: config-server
-        image: alaien/config-server
+        image: alaien/config-sample
         imagePullPolicy: Always
         env:
         - name: HEAP_MEM
           value: 256m
         - name: REGISTRY_SERVERS_URL
-          value: http://eagleeye:eagleeye2019@config-server-0.registry-headless:8761/config-server,http://eagleeye:eagleeye2019@config-server-1.registry-headless:8761/config-server
+          value: http://eagleeye:eagleeye2019@registry-server-0.registry-headless:8761/eureka,http://eagleeye:eagleeye2019@registry-server-1.registry-headless:8761/eureka
         ports:
         - containerPort: 3000
-
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "256Mi"
+          limits:
+            cpu: "200m"
+            memory: "300Mi"
 
 ---
 
@@ -40,8 +46,6 @@ metadata:
 spec:
   selector:
     app: config-server
-  type: NodePort
   ports:
   - port: 80
     targetPort: 3000
-    nodePort: 3000

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: discovery-server
+    name: registry-server
   security:
     user:
       name: test
@@ -19,7 +19,7 @@ eureka:
     fetch-registry: false
     register-with-eureka: true
     service-url:
-      defaultZone: ${other.servers.url:http://test:test@registry-server:8761/eureka}
+      defaultZone: ${registry.servers.url:http://test:test@registry-server:8761/eureka}
 
 server:
   port: ${PORT:8761}
