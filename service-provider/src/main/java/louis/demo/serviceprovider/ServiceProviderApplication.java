@@ -1,4 +1,4 @@
-package louis.demo.eurekaclient;
+package louis.demo.serviceprovider;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -6,16 +6,19 @@ server:
   port: 9000
 
 zuul:
+  ribbon-isolation-strategy: thread
+  thread-pool:
+    use-separate-thread-pools: true
 #  prefix: /api
   retryable: false
   routes:
     config-server:
       path: /gateway/config/**
       serviceId: config-server
-#    provider:
-#      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
-#      path: /gateway/provider/**
-#      serviceId: provider
+    hello-service:
+      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+      path: /gateway/hello-service/**
+      serviceId: hello-service
 
 management:
   endpoints:
@@ -25,20 +28,20 @@ management:
 
 ribbon:
   OkToRetryOnAllOperations: false
-  ReadTimeout: 50000
+  ReadTimeout: 10000
   ConnectTimeout: 1000
   MaxAutoRetries: 0
   MaxAutoRetriesNextServer: 1
 
 hystrix:
   command:
-    trouble-shooting:
+    hello-service:
       execution:
         timeout:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 120000
+            timeoutInMilliseconds: 10000
       circuitBreaker:
         sleepWindowInMilliseconds: 5000
         requestVolumeThreshold: 10

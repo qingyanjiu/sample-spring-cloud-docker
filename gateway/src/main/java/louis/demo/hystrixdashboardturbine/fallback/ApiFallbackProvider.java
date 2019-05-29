@@ -1,4 +1,4 @@
-package louis.demo.fallback;
+package louis.demo.hystrixdashboardturbine.fallback;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

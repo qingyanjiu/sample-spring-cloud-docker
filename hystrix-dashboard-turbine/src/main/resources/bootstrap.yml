@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: hystrix-dashboard-turbine
+  profiles:
+    active: k8s
+
+server:
+  port: 7999
+
+---
+
+spring:
+  profiles: k8s
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://test:test@registry-server/eureka
+turbine:
+  combine-host-port: true
+  instanceUrlSuffix: actuator/hystrix.stream
+  appConfig: gateway
+  clusterNameExpression: "'default'"
+
+---
+
+spring:
+  profiles: local
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+    register-with-eureka: false
+turbine:
+  combine-host-port: true
+  instanceUrlSuffix: actuator/hystrix.stream
+  appConfig: gateway
+  clusterNameExpression: "'default'"
+
+---
+
+spring:
+  profiles: prod
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+turbine:
+  combine-host-port: true
+  instanceUrlSuffix: actuator/hystrix.stream
+  appConfig: gateway
+  clusterNameExpression: "'default'"
+
+

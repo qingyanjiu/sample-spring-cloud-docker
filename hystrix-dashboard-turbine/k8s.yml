@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hystrix-dashboard-turbine
+  labels:
+    app: hystrix-dashboard-turbine
+spec:
+  selector:
+    matchLabels:
+      app: hystrix-dashboard-turbine
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxSurge: 1
+#      maxUnavailable: 1
+  replicas: 1
+  template:
+    metadata:
+      name: hystrix-dashboard-turbine
+      labels:
+        app: hystrix-dashboard-turbine
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: hystrix-dashboard-turbine
+        imagePullPolicy: Always
+        image: alaien/hystrix-dashboard-turbine
+        ports:
+        - containerPort: 7999
+        env:
+        - name: REGISTRY_SERVERS_URL
+          value: http://test:test@registry-server/eureka
+        - name: HEAP_MEM
+          value: 256m
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "10m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hystrix-dashboard-turbine
+  labels:
+    app: hystrix-dashboard-turbine
+spec:
+  selector:
+    app: hystrix-dashboard-turbine
+  ports:
+  - name: port
+    port: 80
+    targetPort: 7999

@@ -1,56 +1,60 @@
 spring:
+  profiles:
+    active: k8s
+  application:
+    name: hello-service
   cloud:
     config:
       discovery:
         enabled: true
         service-id: config-server
       profile: ${spring.profiles.active}
-      name: gateway
-  application:
-    name: gateway
-  profiles:
-    active: k8s
+      name: hello-service
+
 server:
-  port: 9000
-
----
-
-spring:
-  profiles: local
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://test:test@localhost:8761/eureka
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
-
----
-
-spring:
-  profiles: prod
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: ${registry.servers.url:http://test:test@localhost:8761/eureka}
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  port: 9001
 
 ---
 
 spring:
   profiles: k8s
+
 eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: ${registry.servers.url}
   instance:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://test:test@registry-server/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+---
+
+spring:
+  profiles: local
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+---
+
+spring:
+  profiles: dev
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://test:test@localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true

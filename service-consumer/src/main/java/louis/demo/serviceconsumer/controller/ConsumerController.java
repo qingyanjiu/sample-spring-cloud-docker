@@ -3,7 +3,7 @@ package louis.demo.serviceconsumer.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.Logger;
+import louis.demo.serviceconsumer.restService.HelloService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import louis.demo.serviceconsumer.ContainAnnotationValueList;
-import louis.demo.serviceconsumer.restService.HelloService;
 
 @Controller
 @RequestMapping("/")

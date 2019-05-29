@@ -1,4 +1,4 @@
-package louis.demo.eurekaclient;
+package louis.demo.serviceprovider;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

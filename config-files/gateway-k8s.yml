@@ -6,16 +6,19 @@ server:
   port: 9000
 
 zuul:
+  ribbon-isolation-strategy: thread
+  thread-pool:
+    use-separate-thread-pools: true
 #  prefix: /api
   retryable: false
   routes:
     config-server:
       path: /gateway/config/**
       serviceId: config-server
-#    provider:
-#      path: /gateway/provider/**
-#      serviceId: provider
-#      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+    hello-service:
+      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+      path: /gateway/hello-service/**
+      serviceId: hello-service
 
 management:
   endpoints:

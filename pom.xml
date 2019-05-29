@@ -24,5 +24,6 @@
         <module>service-provider</module>
         <module>sidecar</module>
         <module>gateway</module>
+        <module>hystrix-dashboard-turbine</module>
   	</modules>
 </project>

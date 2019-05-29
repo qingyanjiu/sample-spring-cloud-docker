@@ -1,4 +1,4 @@
-package louis.demo.eurekaclient.controller;
+package louis.demo.serviceprovider.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -82,7 +82,7 @@ public class SidecarPropertyConfigurer extends PropertySourcesPlaceholderConfigu
             UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(SIDECAR_CONFIG_USERNAME, SIDECAR_CONFIG_PASSWORD);
             // Inject the credentials
             provider.setCredentials(scope, credentials);
-            // Set the default credentials provider
+            // Set the default credentials serviceprovider
             httpClientBuilder.setDefaultCredentialsProvider(provider);
 //        // Set the default cookieStore
 //        httpClientBuilder.setDefaultCookieStore(cookieStore);

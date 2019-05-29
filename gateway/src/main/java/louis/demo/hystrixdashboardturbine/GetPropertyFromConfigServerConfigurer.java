@@ -94,15 +94,15 @@
 //                httpClientBuilder = HttpClientBuilder.create();
 //            }
 //            // BasicAuth
-//            CredentialsProvider provider = new BasicCredentialsProvider();
+//            CredentialsProvider serviceprovider = new BasicCredentialsProvider();
 //            // Create the authentication scope
 //            AuthScope scope = new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT, AuthScope.ANY_REALM);
 //            // Create credential pair
 //            UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(SIDECAR_CONFIG_USERNAME, SIDECAR_CONFIG_PASSWORD);
 //            // Inject the credentials
-//            provider.setCredentials(scope, credentials);
-//            // Set the default credentials provider
-//            httpClientBuilder.setDefaultCredentialsProvider(provider);
+//            serviceprovider.setCredentials(scope, credentials);
+//            // Set the default credentials serviceprovider
+//            httpClientBuilder.setDefaultCredentialsProvider(serviceprovider);
 ////        // Set the default cookieStore
 ////        httpClientBuilder.setDefaultCookieStore(cookieStore);
 //            // HttpClient
