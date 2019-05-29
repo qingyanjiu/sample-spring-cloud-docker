@@ -19,7 +19,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: registry-server
-        image: alaien/registry-sample
+        image: alaien/sample-registry
         imagePullPolicy: Always
         env:
         - name: HEAP_MEM

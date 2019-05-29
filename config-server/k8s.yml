@@ -18,13 +18,13 @@ spec:
       restartPolicy: Always
       containers:
       - name: config-server
-        image: alaien/config-sample
+        image: alaien/sample-config
         imagePullPolicy: Always
         env:
         - name: HEAP_MEM
           value: 256m
         - name: REGISTRY_SERVERS_URL
-          value: http://eagleeye:eagleeye2019@registry-server-0.registry-headless:8761/eureka,http://eagleeye:eagleeye2019@registry-server-1.registry-headless:8761/eureka
+          value: http://test:test@registry-server/eureka
         ports:
         - containerPort: 3000
         resources:
