@@ -25,24 +25,3 @@ management:
     web:
       exposure:
         include: "*"
-
-ribbon:
-  OkToRetryOnAllOperations: false
-  ReadTimeout: 4000
-  ConnectTimeout: 1000
-  MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 1
-
-hystrix:
-  command:
-    trouble-shooting:
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 2000
-      circuitBreaker:
-        sleepWindowInMilliseconds: 5000
-        requestVolumeThreshold: 10
-        errorThresholdPercentage: 50

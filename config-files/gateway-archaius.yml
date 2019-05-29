@@ -1,7 +1,7 @@
 ribbon:
   OkToRetryOnAllOperations: false
   # 获取数据超时时间
-  ReadTimeout: 4000
+  ReadTimeout: 5000
   # 连接超时时间
   ConnectTimeout: 1000
   MaxAutoRetries: 0
@@ -17,7 +17,7 @@ hystrix:
         isolation:
           thread:
             # 断路器超时时间
-            timeoutInMilliseconds: 2000
+            timeoutInMilliseconds: 5000
       circuitBreaker:
         # 熔断后断路器打开多久
         sleepWindowInMilliseconds: 5000
