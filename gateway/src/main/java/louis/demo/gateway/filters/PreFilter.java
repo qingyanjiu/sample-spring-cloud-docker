@@ -1,4 +1,4 @@
-package louis.demo.hystrixdashboardturbine.filters;
+package louis.demo.gateway.filters;
 
 import javax.servlet.http.HttpServletRequest;
 import com.netflix.zuul.ZuulFilter;

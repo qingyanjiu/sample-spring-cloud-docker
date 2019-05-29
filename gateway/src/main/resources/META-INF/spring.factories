@@ -1,2 +1,2 @@
 #org.springframework.context.ApplicationContextInitializer=\
-#louis.demo.CustomConfigInitailizer
+#CustomConfigInitailizer

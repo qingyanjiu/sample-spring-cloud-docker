@@ -1,6 +1,6 @@
-package louis.demo.hystrixdashboardturbine;
+package louis.demo.gateway;
 
-import louis.demo.hystrixdashboardturbine.filters.PreFilter;
+import louis.demo.gateway.filters.PreFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package louis.demo.hystrixdashboardturbine;
+package louis.demo.gateway;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

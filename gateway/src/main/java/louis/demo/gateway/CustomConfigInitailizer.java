@@ -1,4 +1,4 @@
-package louis.demo.hystrixdashboardturbine;
+package louis.demo.gateway;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
