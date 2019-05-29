@@ -5,7 +5,7 @@ ribbon:
   # 连接超时时间
   ConnectTimeout: 1000
   MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 1
+  MaxAutoRetriesNextServer: 0
 
 hystrix:
   command:
