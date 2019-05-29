@@ -33,9 +33,9 @@ eureka:
       defaultZone: http://test:test@localhost:8761/eureka
     register-with-eureka: false
 turbine:
-  combine-host-port: true
+#  combine-host-port: true
   instanceUrlSuffix: actuator/hystrix.stream
-  appConfig: gateway
+  appConfig: gateway,hello-service
   clusterNameExpression: "'default'"
 
 ---
