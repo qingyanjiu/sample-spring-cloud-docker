@@ -17,6 +17,17 @@ server:
 
 spring:
   profiles: local
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  #  sender:
+  #    type: RABBIT
 eureka:
   client:
     register-with-eureka: true
@@ -31,6 +42,17 @@ eureka:
 
 spring:
   profiles: prod
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+  #  sender:
+  #    type: RABBIT
 eureka:
   client:
     register-with-eureka: true
@@ -45,6 +67,17 @@ eureka:
 
 spring:
   profiles: k8s
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://zipkin
+    enabled: true
+  #  sender:
+  #    type: RABBIT
 eureka:
   client:
     register-with-eureka: true
