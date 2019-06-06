@@ -25,5 +25,6 @@
         <module>sidecar</module>
         <module>gateway</module>
         <module>hystrix-dashboard-turbine</module>
+        <module>sample-quasar-fiber</module>
   	</modules>
 </project>
