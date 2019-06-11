@@ -1,0 +1,6 @@
+# 添加了config server的加密解密
+# 通过config-server API POST /encrypt 来加密数据，POST /decrypt 来解密数据
+# 具体配置方式可以查看我的笔记
+# https://onedrive.live.com/view.aspx?resid=4E4FEDCC2A0CC9B9%21883&id=documents&wd=target%28%E7%AA%81%E7%84%B6%E6%83%B3%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%EF%BC%8C%E5%9B%9E%E5%A4%B4%E6%89%BE%E8%B5%84%E6%96%99%E8%A7%A3%E7%AD%94.one%7C33A86A40-AB11-4E49-BAE0-11824C612694%2FSpringcloud%20config%20%E5%8A%A0%E8%A7%A3%E5%AF%86%7CAE48AC46-407F-4EAB-9581-E96A6D9EA06A%2F%29onenote:https://d.docs.live.net/4e4fedcc2a0cc9b9/Documents/刘畅%20的笔记本/突然想到的问题记录，回头找资料解答.one#Springcloud%20config%20加解密&section-id={33A86A40-AB11-4E49-BAE0-11824C612694}&page-id={AE48AC46-407F-4EAB-9581-E96A6D9EA06A}&end
+encrypt:
+  key: louisdemotest
