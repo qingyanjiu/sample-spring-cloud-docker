@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -64,5 +65,11 @@ public class IndexController {
 
     private String fallback(){
         return "fallback";
+    }
+
+
+    @RequestMapping("testProperty")
+    public String testProperty(){
+        return this.env.getProperty("sidecar.password");
     }
 }
