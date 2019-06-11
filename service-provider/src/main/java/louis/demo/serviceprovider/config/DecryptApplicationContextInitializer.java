@@ -20,7 +20,6 @@ public class DecryptApplicationContextInitializer implements ApplicationContextI
     public void initialize(ConfigurableApplicationContext applicationContext) {
         ConfigurableEnvironment environment = applicationContext.getEnvironment();
         MutablePropertySources propertySources = environment.getPropertySources();
-        PropertySource propertySource = propertySources.get("configurationProperties");
         Map passwordMap = new HashMap();
         for (PropertySource<?> source : environment.getPropertySources()) {
             if (source instanceof EnumerablePropertySource) {
