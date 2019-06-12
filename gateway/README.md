@@ -1,0 +1,6 @@
+-Dspring.profiles.active=local
+-Darchaius.configurationSource.additionalUrls=http://localhost:3000/gateway-archaius.properties
+-Darchaius.fixedDelayPollingScheduler.delayMills=10000
+-Darchaius.fixedDelayPollingScheduler.initialDelayMills=10000
+-DinternalCors=http://localhost:9090
+-DexternalCors=http://localhost:9090

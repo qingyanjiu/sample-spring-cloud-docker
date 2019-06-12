@@ -1,0 +1,1 @@
+java -Dzipkin.collector.kafka.bootstrap-servers=kafka:9092  -Dzipkin.collector.kafka.topic=zipkin -jar zipkin-server-2.14.0-exec.jar --STORAGE_TYPE=elasticsearch --ES_HTTP_LOGGING=BASIC --ES_HOSTS=http://elasticsearch:9200
