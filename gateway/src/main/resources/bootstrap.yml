@@ -13,6 +13,10 @@ spring:
 server:
   port: 9000
 
+es:
+  host: http://ip172-18-0-22-bk0q2i1lhjkg00a4pq9g-9200.direct.labs.play-with-docker.com:80
+
+
 ---
 
 spring:
