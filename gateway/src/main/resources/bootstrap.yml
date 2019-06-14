@@ -14,7 +14,7 @@ server:
   port: 9000
 
 es:
-  host: http://ip172-18-0-46-bk0t14vdqii000bg4fb0-9200.direct.labs.play-with-docker.com:80
+  host: http://ip172-18-0-22-bk1ocrvdqii000fhh4e0-9200.direct.labs.play-with-docker.com:80
 
 
 ---
@@ -24,7 +24,7 @@ spring:
   sleuth:
     web:
       client:
-        enabled: false
+        enabled: true
     sampler:
       probability: 1.0
   zipkin:
