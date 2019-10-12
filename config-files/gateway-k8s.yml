@@ -13,13 +13,10 @@ spring:
 #  kafka:
 #    bootstrap-servers: 104.199.215.151:9092
 
-server:
-  port: 9000
-
 zuul:
-  ribbon-isolation-strategy: thread
-  thread-pool:
-    use-separate-thread-pools: true
+#  ribbon-isolation-strategy: thread
+#  thread-pool:
+#    use-separate-thread-pools: true
 #  prefix: /api
   retryable: false
   routes:
