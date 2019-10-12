@@ -13,7 +13,7 @@ data:
       # Attach these labels to any time series or alerts when communicating with
       # external systems (federation, remote storage, Alertmanager).
       external_labels:
-          monitor: 'ee-metrics'
+          monitor: 'metrics'
 
     # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
     rule_files:
@@ -24,13 +24,13 @@ data:
     # Here it's Prometheus itself.
     scrape_configs:
       # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-      - job_name: 'frontend'
+      - job_name: 'jobname'
 
         # metrics_path defaults to '/metrics'
         # scheme defaults to 'http'.
 
         static_configs:
-          - targets: ['frontend:80']
+          - targets: ['url:80']
 
 ---
 
