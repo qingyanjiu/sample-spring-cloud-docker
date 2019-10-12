@@ -1,6 +1,17 @@
 spring:
-  application:
-    name: gateway
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://zipkin
+    enabled: true
+#    sender:
+#      type: KAFKA
+#  kafka:
+#    bootstrap-servers: 104.199.215.151:9092
 
 server:
   port: 9000
