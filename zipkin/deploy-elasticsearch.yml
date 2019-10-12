@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+    life: prod
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+      life: prod
+  replicas: 1
+  template:
+    metadata:
+      name: elasticsearch
+      labels:
+        app: elasticsearch
+        life: prod
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: elasticsearch
+        image: elasticsearch
+        imagePullPolicy: Always
+        ports:
+        - name: elasticsearch
+          containerPort: 9200
+        volumeMounts:
+        - name: elastic-data
+          mountPath: /usr/share/elasticsearch/data
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "100m"
+          limits:
+            memory: "2048Mi"
+            cpu: "1000m"
+      volumes:
+      - name: elastic-data
+        persistentVolumeClaim:
+          claimName: elasticsearch-claim
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  labels:
+    app: elasticsearch
+    life: prod
+spec:
+  selector:
+    app: elasticsearch
+    life: prod
+  ports:
+  - name: elasticsearch
+    port: 80
+    targetPort: 9200

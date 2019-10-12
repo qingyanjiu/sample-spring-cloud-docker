@@ -1,0 +1,16 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: es-mapping-job
+spec:
+  schedule: "0 22 * * *"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          containers:
+          - name: es-mapping-job
+            image:  es-mapping-job
+          restartPolicy: OnFailure
+          backoffLimit: 3

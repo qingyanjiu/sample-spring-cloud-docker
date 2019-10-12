@@ -1,0 +1,81 @@
+{
+  "mappings": {
+    "span": {
+      "_source": {
+        "excludes": [
+          "_q"
+        ]
+      },
+      "dynamic_templates": [
+        {
+          "strings": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "ignore_above": 256,
+              "norms": false,
+              "type": "keyword"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "_q": {
+          "type": "keyword"
+        },
+        "annotations": {
+          "type": "object",
+          "enabled": false
+        },
+        "duration": {
+          "type": "long"
+        },
+        "id": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "kind": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "localEndpoint": {
+          "dynamic": "false",
+          "properties": {
+            "serviceName": {
+              "type": "keyword"
+            }
+          }
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "parentId": {
+          "type": "keyword",
+          "ignore_above": 256
+        },
+        "remoteEndpoint": {
+          "dynamic": "false",
+          "properties": {
+            "serviceName": {
+              "type": "keyword"
+            }
+          }
+        },
+        "tags": {
+          "type": "object",
+          "enabled": true
+        },
+        "timestamp": {
+          "type": "long"
+        },
+        "timestamp_millis": {
+          "type": "date",
+          "format": "epoch_millis"
+        },
+        "traceId": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
