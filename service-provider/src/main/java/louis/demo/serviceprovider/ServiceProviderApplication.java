@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients
-@EnableCircuitBreaker
+//@EnableCircuitBreaker
 public class ServiceProviderApplication {
 
 	@Bean

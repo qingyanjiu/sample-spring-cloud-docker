@@ -17,6 +17,7 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping("/")
 public class IndexController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
