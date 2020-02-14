@@ -1,0 +1,104 @@
+piVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    # my global config
+    global:
+      scrape_interval:     60s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+      evaluation_interval: 60s # Evaluate rules every 15 seconds. The default is every 1 minute.
+      # scrape_timeout is set to the global default (10s).
+
+      # Attach these labels to any time series or alerts when communicating with
+      # external systems (federation, remote storage, Alertmanager).
+      external_labels:
+          monitor: 'metrics'
+
+    # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+    rule_files:
+      # - "first.rules"
+      # - "second.rules"
+
+    # A scrape configuration containing exactly one endpoint to scrape:
+    # Here it's Prometheus itself.
+    scrape_configs:
+      # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+      - job_name: 'frontend'
+
+        # metrics_path defaults to '/metrics'
+
+        scheme: 'https'
+
+        static_configs:
+          - targets: ['FRONTEND:443']
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    life: prod
+spec:
+  selector:
+    matchLabels:
+      app: prometheus
+      life: prod
+  replicas: 1
+  template:
+    metadata:
+      name: prometheus
+      labels:
+        app: prometheus
+        life: prod
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: prometheus
+        image: $DOCKER_REPO/prometheus
+        imagePullPolicy: Always
+        ports:
+        - name: prometheus
+          containerPort: 9090
+        env:
+        - name: storage.local.retention
+          value: 48h0m0s
+        resources:
+          requests:
+            cpu: "20m"
+          limits:
+            memory: "1000Mi"
+        volumeMounts:
+          - name: prometheus-config
+            mountPath: /etc/prometheus/
+          - name: prometheus-data
+            mountPath: /prometheus
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+      - name: prometheus-data
+        persistentVolumeClaim:
+          claimName: prometheus-claim
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    life: prod
+spec:
+  selector:
+    app: prometheus
+    life: prod
+  ports:
+  - name: prometheus
+    port: 80
+    targetPort: 9090

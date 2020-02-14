@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipkin
+  labels:
+    app: zipkin
+    life: prod
+spec:
+  selector:
+    matchLabels:
+      app: zipkin
+      life: prod
+  replicas: 1
+  template:
+    metadata:
+      name: zipkin
+      labels:
+        app: zipkin
+        life: prod
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: zipkin
+        image: $DOCKER_REPO/zipkin
+        imagePullPolicy: Always
+        ports:
+        - name: zipkin-port
+          containerPort: 9411
+        env:
+        - name: HEAP_MEM
+          value: 1800m
+        command: ['sh','-c','java -jar *.jar --STORAGE_TYPE=elasticsearch --ES_HTTP_LOGGING=BASIC --ES_HOSTS=http://elasticsearch']
+        resources:
+          requests:
+            cpu: "20m"
+          limits:
+            memory: "2000Mi"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+  labels:
+    app: zipkin
+    life: prod
+spec:
+  selector:
+    app: zipkin
+    life: prod
+  ports:
+  - name: port
+    port: 80
+    targetPort: 9411
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
